@@ -1,69 +1,51 @@
+import { useState } from 'react'
+import Spline from '@splinetool/react-spline'
+import Sidebar from './components/Sidebar'
+import Header from './components/Header'
+import Dashboard from './components/Dashboard'
+import Contacts from './components/Contacts'
+
 function App() {
+  const [section, setSection] = useState('Dashboard')
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      {/* Layout */}
+      <div className="flex">
+        {/* Sidebar */}
+        <Sidebar current={section} onNavigate={setSection} />
 
-      <div className="relative min-h-screen flex items-center justify-center p-8">
-        <div className="max-w-2xl w-full">
-          {/* Header with Flames icon */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center mb-6">
-              <img
-                src="/flame-icon.svg"
-                alt="Flames"
-                className="w-24 h-24 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]"
-              />
+        {/* Main content */}
+        <div className="flex-1 min-h-screen flex flex-col">
+          <Header title={section} />
+
+          {/* Hero with Spline on Dashboard only */}
+          {section === 'Dashboard' && (
+            <div className="relative h-64 bg-gradient-to-br from-blue-50 to-indigo-50 border-b border-slate-200 overflow-hidden">
+              <Spline scene="https://prod.spline.design/41MGRk-UDPKO-l6W/scene.splinecode" style={{ width: '100%', height: '100%' }} />
             </div>
+          )}
 
-            <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-              Flames Blue
-            </h1>
+          {/* Section content */}
+          {section === 'Dashboard' && <Dashboard />}
+          {section === 'Contacts' && <Contacts />}
 
-            <p className="text-xl text-blue-200 mb-6">
-              Build applications through conversation
-            </p>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-xl mb-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Describe your idea</h3>
-                <p className="text-blue-200/80 text-sm">Use the chat panel on the left to tell the AI what you want to build</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Watch it build</h3>
-                <p className="text-blue-200/80 text-sm">Your app will appear in this preview as the AI generates the code</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Refine and iterate</h3>
-                <p className="text-blue-200/80 text-sm">Continue the conversation to add features and make changes</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-sm text-blue-300/60">
-              No coding required • Just describe what you want
-            </p>
-          </div>
+          {/* Placeholders for upcoming sections */}
+          {section === 'Companies' && (
+            <div className="p-8">Companies management coming next.</div>
+          )}
+          {section === 'Deals' && (
+            <div className="p-8">Kanban pipeline coming next.</div>
+          )}
+          {section === 'Mailing' && (
+            <div className="p-8">Bulk mailing with segments coming next.</div>
+          )}
+          {section === 'Statistics' && (
+            <div className="p-8">Interactive charts coming next.</div>
+          )}
+          {section === 'Settings' && (
+            <div className="p-8">Workspace settings coming next.</div>
+          )}
         </div>
       </div>
     </div>
